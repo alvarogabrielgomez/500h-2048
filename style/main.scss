@@ -9,23 +9,26 @@ $tile-border-radius: 3px;
 
 $mobile-threshold: $field-width + 20px;
 
-$text-color: #776E65;
-$bright-text-color: #f9f6f2;
+$text-color: #E3E2E6;
+$button-text-color: #2D1600;
+$bright-text-color: #fff;
 
-$tile-color: #eee4da;
-$tile-gold-color: #edc22e;
+$tile-color: #2A3D52;
+$tile-gold-color: #FFDCBA;
 $tile-gold-glow-color: lighten($tile-gold-color, 15%);
 
 $game-container-margin-top: 40px;
-$game-container-background: #bbada0;
+$game-container-background: #1D2B3B;
 
 $transition-speed: 100ms;
+
+$background-color: #101C29;
 
 html, body {
   margin: 0;
   padding: 0;
 
-  background: #faf8ef;
+  background: $background-color;
   color: $text-color;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
@@ -76,9 +79,10 @@ h1.title {
   line-height: $height + 22px;
   font-weight: bold;
   border-radius: 3px;
-  color: white;
+  color: $text-color;
   margin-top: 8px;
   text-align: center;
+  min-width: 70px;
 
   &:after {
     position: absolute;
@@ -89,7 +93,7 @@ h1.title {
     font-size: 13px;
     line-height: 13px;
     text-align: center;
-    color: $tile-color;
+    color: $text-color;
   }
 
   .score-addition {
@@ -107,11 +111,11 @@ h1.title {
 }
 
 .score-container:after {
-  content: "Score";
+  content: "Puntos";
 }
 
 .best-container:after {
-  content: "Best";
+  content: "Mejor puntaje";
 }
 
 p {
@@ -158,13 +162,14 @@ hr {
 // Styles for buttons
 @mixin button {
   display: inline-block;
-  background: darken($game-container-background, 20%);
+  // background: darken($game-container-background, 20%);
   border-radius: 3px;
   padding: 0 20px;
   text-decoration: none;
-  color: $bright-text-color;
   height: 40px;
   line-height: 42px;
+  background-color: $tile-gold-color;
+  color: $button-text-color;
 }
 
 // Game field mixin used to render CSS at different width
@@ -466,6 +471,7 @@ hr {
   display: block;
   text-align: center;
   float: right;
+
 }
 
 .game-explanation {
@@ -503,7 +509,7 @@ hr {
   .score-container, .best-container {
     margin-top: 0;
     padding: 15px 10px;
-    min-width: 40px;
+    min-width: 70px!important;
   }
 
   .heading {
