@@ -1,15 +1,93 @@
+
+// export function to mount the game
+mountGame = function () {
+  // get the #sar-game-app element and mount the game
+  const sarGameApp = document.getElementById('sar-game-app');
+  // Create the game container and append it to the #sar-game-app element
+  const gameContainer = document.createElement('div');
+  gameContainer.innerHTML = `
+  <div class="container">
+  <div class="heading">
+    <h1 class="title">2048</h1>
+    <div class="scores-container">
+      <div class="score-container">0</div>
+      <div class="best-container">0</div>
+    </div>
+  </div>
+
+  <div class="above-game">
+    <p class="game-intro">Une los numeros y consigue llegar a <strong>2048!</strong></p>
+    <a class="restart-button">Nuevo juego</a>
+  </div>
+
+  <div class="game-container">
+    <div class="game-message">
+      <p></p>
+      <div class="lower">
+        <a class="keep-playing-button">Sigue intentando</a>
+        <a class="retry-button">Intenta otra vez</a>
+      </div>
+    </div>
+
+    <div class="grid-container">
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+    </div>
+
+    <div class="tile-container">
+
+    </div>
+  </div>
+
+  </br>
+  <button id="end-button-ok">Terminar OK el juego</button>
+  <button id="end-button-nook">Terminar no OK el juego</button>
+  <p class="game-explanation">
+    <strong class="important">Como jugar:</strong> <strong>Arrastra</strong> para mover las fichas. Cuando dos fichas con el mismo numero se toquen, se unen en <strong>uno solo!</strong>
+  </p>  
+  <hr>
+  <p>
+  </a> Basado en <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 por Veewo Studio</a> y conceptualmente similar a <a href="http://asherv.com/threes/" target="_blank">Threes por Asher Vollmer.</a>
+  </p>
+  </div>
+  
+  `;
+  sarGameApp.appendChild(gameContainer);
+}
 function GameManager(size, InputManager, Actuator, StorageManager) {
   this.size           = size; // Size of the grid
   this.inputManager   = new InputManager;
   this.storageManager = new StorageManager;
   this.actuator       = new Actuator;
-
+  
   this.startTiles     = 2;
-
+  
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
-
+  
   this.setup();
 }
 

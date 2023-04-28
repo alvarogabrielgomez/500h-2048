@@ -53,21 +53,23 @@
 }
 
 // Keyframe animations
-@mixin keyframes($animation-name) {
-  @-webkit-keyframes $animation-name {
+@mixin keyframes($animation) {
+  @keyframes #{$animation} {
     @content;
   }
-  @-moz-keyframes $animation-name {
+  @-moz-keyframes #{$animation} {
     @content;
   }
-  @keyframes $animation-name {
+  @keyframes #{$animation} {
     @content;
   }
 }
 
 // Media queries
 @mixin smaller($width) {
+  
   @media screen and (max-width: $width) {
+    
     @content;
   }
 }

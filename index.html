@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>2048</title>
 
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <link href="style/main.css" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
@@ -17,70 +18,15 @@
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
-  <div class="container">
-    <div class="heading">
-      <h1 class="title">2048</h1>
-      <div class="scores-container">
-        <div class="score-container">0</div>
-        <div class="best-container">0</div>
-      </div>
-    </div>
+  <!-- Todo el contenido del juego debe estar dentro de la etiqueta "sar-game-app" -->
+  <section id="sar-game-app">
+    <!-- El contenido del juego -->
+  </section>
 
-    <div class="above-game">
-      <p class="game-intro">Une los numeros y consigue llegar a <strong>2048!</strong></p>
-      <a class="restart-button">Nuevo juego</a>
-    </div>
-
-    <div class="game-container">
-      <div class="game-message">
-        <p></p>
-        <div class="lower">
-	        <a class="keep-playing-button">Sigue intentando</a>
-          <a class="retry-button">Intenta otra vez</a>
-        </div>
-      </div>
-
-      <div class="grid-container">
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-      </div>
-
-      <div class="tile-container">
-
-      </div>
-    </div>
-
-    <p class="game-explanation">
-      <strong class="important">Como jugar:</strong> <strong>Arrastra</strong> para mover las fichas. Cuando dos fichas con el mismo numero se toquen, se unen en <strong>uno solo!</strong>
-    </p>  
-    <hr>
-    <p>
-    </a> Basado en <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 por Veewo Studio</a> y conceptualmente similar a <a href="http://asherv.com/threes/" target="_blank">Threes por Asher Vollmer.</a>
-    </p>
-  </div>
-
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="https://unpkg.com/@rive-app/canvas@1.0.102"></script>
+  <script src="js/challenge.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="js/bind_polyfill.js"></script>
   <script src="js/classlist_polyfill.js"></script>
   <script src="js/animframe_polyfill.js"></script>
@@ -90,6 +36,42 @@
   <script src="js/tile.js"></script>
   <script src="js/local_storage_manager.js"></script>
   <script src="js/game_manager.js"></script>
-  <script src="js/application.js"></script>
+
+  <script>
+    const sarLib = new SarLib(
+    {
+      "uuid": "46a60d09-cca6-4ded-977e-f1d0e50be909",
+      "secretKey": "IntcIml2XCI6XCI1MTViNTAzYWVhNzI3NzhjODliMjMwZGYzMjE5MGE0OFwiLFwiZW5jcnlwdGVkRGF0YVwiOlwiZTAyNTE3YzUyNjBiNzEzMGQ5N2U1M2FhZGYzMjM2N2MyMjkxN2UzYjI4ZTMxZWIzYTRiMzNjMTlkOTlkMTU1ZTg1OWQ5ZDUxZjdmNjJhOGZiZjE1MjM2YTExZGI4NjIwXCJ9Ig=="
+    },
+    'http://localhost:4022');
+    sarLib.init(() => {
+      console.log('Inicializado');
+      // Una vez inicializado, renderizamos el juego
+      mountGame();
+      window.requestAnimationFrame(function () {
+        new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager);
+      });
+
+      // Añadimos los listners para los botones de prueba para terminar el juego
+      
+      const endButtonOk = document.getElementById('end-button-ok');
+      // get #end-button-ok and add event listener
+      endButtonOk.addEventListener('click', () => {
+        console.log('endButtonOk clicked');
+        sarLib.finishChallenge(true);
+      });
+
+      // get #end-button-ok and add event listener
+      const endButtonNoOk = document.getElementById('end-button-nook');
+      endButtonNoOk.addEventListener('click', () => {
+        console.log('endButtonNoOk clicked');
+        sarLib.finishChallenge(false);
+      });
+
+
+    });
+  </script>
+
+
 </body>
 </html>

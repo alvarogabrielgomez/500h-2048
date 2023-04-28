@@ -115,7 +115,7 @@ h1.title {
 }
 
 .best-container:after {
-  content: "Mejor puntaje";
+  content: "Mejor";
 }
 
 p {
@@ -183,7 +183,7 @@ hr {
     -webkit-touch-callout: none;
     -ms-touch-callout: none;
 
-    -webkit-user-select: none;
+    user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
 
@@ -315,6 +315,8 @@ hr {
 
 // End of game-field mixin
 @include game-field;
+
+
 
 .tile {
   position: absolute; // Makes transforms relative to the top-left corner
@@ -478,14 +480,16 @@ hr {
   margin-top: 50px;
 }
 
+
+// Redefine variables for smaller screens
+$field-width: 280px;
+$grid-spacing: 10px;
+$grid-row-cells: 4;
+$tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells;
+$tile-border-radius: 3px;
+$game-container-margin-top: 17px;
+
 @include smaller($mobile-threshold) {
-  // Redefine variables for smaller screens
-  $field-width: 280px;
-  $grid-spacing: 10px;
-  $grid-row-cells: 4;
-  $tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells;
-  $tile-border-radius: 3px;
-  $game-container-margin-top: 17px;
 
   html, body {
     font-size: 15px;
@@ -502,7 +506,7 @@ hr {
   }
 
   .container {
-    width: $field-width;
+    width: 100%;
     margin: 0 auto;
   }
 
@@ -512,8 +516,12 @@ hr {
     min-width: 70px!important;
   }
 
+  .game-container {
+    margin: auto;
+  }
+
   .heading {
-    margin-bottom: 10px;
+    margin-bottom: 18px;
   }
 
   // Show intro and restart button side by side
