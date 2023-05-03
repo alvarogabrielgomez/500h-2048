@@ -23,6 +23,7 @@ class SarLib {
     this.queryParams = [];
     this.urlApi = url || "https://500h-sar-dev.accentiostudios.com";
     this.user = null;
+    this.testMode;
   }
 
   async init(callback) {
@@ -31,6 +32,9 @@ class SarLib {
       this.createLoadingScreen();
       this.removeErrorScreen();
       this.parseQueryParams();
+      const testMode = this.getQueryParam("testMode") === 'true';
+      this.testMode = testMode;
+
       setTimeout(async () => {
         const responses = await Promise.all([
           this.getUser(),
@@ -73,8 +77,9 @@ class SarLib {
       try {
         const userId = this.getQueryParam("userId");
         let myHeaders = new Headers();
-        myHeaders.append("secret_key", this.secretKey);
-        myHeaders.append("challenge_uuid", this.challengeUUID);
+        myHeaders.append("sar-secret-key", this.secretKey);
+        myHeaders.append("sar-challenge-uuid", this.challengeUUID);
+        myHeaders.append("sar-test-mode", this.testMode.toString());
         var requestOptions = {
           method: 'GET',
           headers: myHeaders,
@@ -148,9 +153,13 @@ class SarLib {
           success: success
         }
       });
-      this.createSuccessScreen();
+      this.createSuccessScreen(success);
       this.removeLoadingScreen();
+      // wait 2 seconds for close the web view
+      await new Promise(resolve => setTimeout(() => {
         this.closeWebView(success);
+        resolve();
+      }, 2000));
     } catch (error) {
       this.removeLoadingScreen();
       // this.createErrorScreen(error.message);
@@ -180,8 +189,9 @@ class SarLib {
 
     const headers = {
       'Content-Type': 'application/json',
-      'challenge_uuid': this.challengeUUID,
-      'secret_key': this.secretKey
+      'sar-challenge-uuid': this.challengeUUID,
+      'sar-secret-key': this.secretKey,
+      'sar-test-mode': this.testMode?.toString()
     };
 
     const requestOptions = {
@@ -234,7 +244,7 @@ class SarLib {
     document.body.appendChild(splashScreen);
   }
 
-  createSuccessScreen() {
+  createSuccessScreen(win) {
     // first we remove all the content inside the #sar-game-app div
     const sarGameApp = document.getElementById('sar-game-app');
     sarGameApp.innerHTML = '';
@@ -254,7 +264,9 @@ class SarLib {
     // container flexible with centered image of gif and a text with loading message
     successScreen.innerHTML = `
       <div style="display: flex; flex-direction: column; align-items: center; padding: 24px;">
-        <h1 style="color: white; font-size: 18px; margin-top: 18px;">Ya puedes volver a el app...</h1>
+  
+        <h1 style="color: white; font-size: 18px; margin-top: 18px;">Game Over!</h1>
+        <h3 style="color: white; font-size: 16px; margin-top: 0px; text-align:center; font-weight: 400;">${win === true ? 'Felicidades, has obtenido puntos gracias a ganar el juego. Sigue así' : 'Lamentablemente no has obtenido puntos esta vez, pero sigue intentando!'}</h3>
       </div>
       
     `

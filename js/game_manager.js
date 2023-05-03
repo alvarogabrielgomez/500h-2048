@@ -23,7 +23,7 @@ mountGame = function () {
   <div class="game-container">
     <div class="game-message">
       <p></p>
-      <div class="lower">
+      <div class="lower" style="display:none;">
         <a class="keep-playing-button">Sigue intentando</a>
         <a class="retry-button">Intenta otra vez</a>
       </div>

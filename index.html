@@ -23,10 +23,8 @@
     <!-- El contenido del juego -->
   </section>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script src="https://unpkg.com/@rive-app/canvas@1.0.102"></script>
-  <script src="js/challenge.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- <script src="js/sarlib.umd.js"></script> -->
+  <script src="https://unpkg.com/@500historias/sarlib@latest"></script>
   <script src="js/bind_polyfill.js"></script>
   <script src="js/classlist_polyfill.js"></script>
   <script src="js/animframe_polyfill.js"></script>
@@ -38,13 +36,12 @@
   <script src="js/game_manager.js"></script>
 
   <script>
-    const sarLib = new SarLib(
+    sarlib.init(
     {
-      "uuid": "46a60d09-cca6-4ded-977e-f1d0e50be909",
-      "secretKey": "IntcIml2XCI6XCI1MTViNTAzYWVhNzI3NzhjODliMjMwZGYzMjE5MGE0OFwiLFwiZW5jcnlwdGVkRGF0YVwiOlwiZTAyNTE3YzUyNjBiNzEzMGQ5N2U1M2FhZGYzMjM2N2MyMjkxN2UzYjI4ZTMxZWIzYTRiMzNjMTlkOTlkMTU1ZTg1OWQ5ZDUxZjdmNjJhOGZiZjE1MjM2YTExZGI4NjIwXCJ9Ig=="
-    },
-    'http://localhost:4022');
-    sarLib.init(() => {
+      "uuid": "e54045e0-c0da-4a4f-ad47-5498eba6b7dc",
+      "secretKey": "IntcIml2XCI6XCJiOTMyNWZiMjcyZmIyYzMzMzQ2ZmY4OWQ2NjRlMTQyMFwiLFwiZW5jcnlwdGVkRGF0YVwiOlwiMzg1YWY1ODhjM2U2MDU2ZWUwYWU1NmMyM2JhNzliMjY3M2I4MzFhZDI0ODk0N2YzYzJmOWEyN2YwMDU0ZjRjNmY2YWY3NGZhOWY4OTA4M2I5N2JjZDk2NWNkODU5ZDVjXCJ9Ig==",
+      "url": "https://500h-sar-dev.accentiostudios.com"
+    }, ()=>{
       console.log('Inicializado');
       // Una vez inicializado, renderizamos el juego
       mountGame();
@@ -58,18 +55,17 @@
       // get #end-button-ok and add event listener
       endButtonOk.addEventListener('click', () => {
         console.log('endButtonOk clicked');
-        sarLib.finishChallenge(true);
+        sarlib.finishChallenge(true);
       });
 
       // get #end-button-ok and add event listener
       const endButtonNoOk = document.getElementById('end-button-nook');
       endButtonNoOk.addEventListener('click', () => {
         console.log('endButtonNoOk clicked');
-        sarLib.finishChallenge(false);
+        sarlib.finishChallenge(false);
       });
-
-
     });
+
   </script>
 
 

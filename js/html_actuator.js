@@ -27,8 +27,16 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
     if (metadata.terminated) {
       if (metadata.over) {
         self.message(false); // You lose
+        // wait for 3 seconds and then end challenge (lose)
+        setTimeout(function() {
+          sarLib.finishChallenge(false); // end challenge (lose)
+        }, 3000);
       } else if (metadata.won) {
         self.message(true); // You win!
+        setTimeout(function() {
+          sarLib.finishChallenge(true); // end challenge (win)
+      }, 3000);
+
       }
     }
 
